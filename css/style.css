@@ -1,0 +1,241 @@
+:root {
+    --primary: #8b7355;
+    --accent: #c9a86c;
+    --dark: #1a1a1a;
+    --light: #f8f6f3;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Serif SC', 'Georgia', serif;
+    background: var(--dark);
+    color: var(--light);
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.app {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 背景层 */
+.bg-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.bg-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 1s ease;
+    animation: slowZoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes slowZoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+.bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.bg-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 0, 0, 0.15) 50%,
+        rgba(0, 0, 0, 0.5) 100%
+    );
+}
+
+/* 主内容 */
+.main-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    position: relative;
+    z-index: 10;
+}
+
+.verse-container {
+    max-width: 680px;
+    text-align: center;
+    animation: fadeInUp 0.8s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.verse-icon {
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 24px;
+    opacity: 0.9;
+}
+
+.verse-icon svg {
+    width: 40px;
+    height: 40px;
+}
+
+.verse-text {
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
+    line-height: 1.8;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+    margin-bottom: 12px;
+    quotes: """ """ "'" "'";
+}
+
+.verse-zh {
+    font-family: 'Noto Serif SC', 'Georgia', serif;
+}
+
+.verse-en {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+    opacity: 0.9;
+    font-style: italic;
+}
+
+.verse-text::before {
+    content: open-quote;
+    font-size: 3rem;
+    color: var(--accent);
+    opacity: 0.6;
+    vertical-align: -0.3em;
+    margin-right: 4px;
+}
+
+.verse-text::after {
+    content: close-quote;
+    font-size: 3rem;
+    color: var(--accent);
+    opacity: 0.6;
+    vertical-align: -0.3em;
+    margin-left: 4px;
+}
+
+
+.verse-ref {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--accent);
+    font-style: normal;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+}
+
+.verse-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.4;
+    margin: 20px auto;
+}
+
+/* 底部控制栏 */
+.controls {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+    background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+}
+
+.ctrl-btn {
+    width: 52px;
+    height: 52px;
+    border: 1.5px solid rgba(255,255,255,0.25);
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    color: var(--light);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.ctrl-btn:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: var(--accent);
+    transform: scale(1.08);
+}
+
+.ctrl-btn:active {
+    transform: scale(0.95);
+}
+
+.ctrl-btn svg {
+    width: 22px;
+    height: 22px;
+}
+
+.lang-btn .lang-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+/* 响应式 */
+@media (max-width: 480px) {
+    .verse-icon { font-size: 2rem; }
+    .verse-text::before,
+    .verse-text::after { font-size: 2rem; }
+    .controls { padding: 20px 16px; }
+    .ctrl-btn { width: 46px; height: 46px; }
+}
+
+
+/* Toast提示 */
+.toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    z-index: 100;
+    animation: toastFade 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes toastFade {
+    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}

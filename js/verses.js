@@ -1,0 +1,122 @@
+// 圣经金句数据 - 按主题分类
+const defaultVerses = [
+    // ========== 主题：爱 ==========
+    { zh: "爱是恒久忍耐，又有恩慈；爱是不嫉妒，爱是不自夸，不张狂。", en: "Love is patient, love is kind. It does not envy, it does not boast, it is not proud.", refZh: "哥林多前书 13:4", refEn: "1 Corinthians 13:4" },
+    { zh: "神爱世人，甚至将他的独生子赐给他们，叫一切信他的，不至灭亡，反得永生。", en: "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.", refZh: "约翰福音 3:16", refEn: "John 3:16" },
+    { zh: "我们爱，因为神先爱我们。", en: "We love because he first loved us.", refZh: "约翰一书 4:19", refEn: "1 John 4:19" },
+    { zh: "爱是不加害与人的，所以爱就完全了律法。", en: "Love does no harm to a neighbor. Therefore love is the fulfillment of the law.", refZh: "罗马书 13:10", refEn: "Romans 13:10" },
+    { zh: "爱是永不止息。", en: "Love never fails.", refZh: "哥林多前书 13:8", refEn: "1 Corinthians 13:8" },
+    { zh: "爱里没有惧怕；爱既完全，就把惧怕除去。", en: "There is no fear in love. But perfect love drives out fear.", refZh: "约翰一书 4:18", refEn: "1 John 4:18" },
+    { zh: "爱是凡事包容，凡事相信，凡事盼望，凡事忍耐。", en: "Love always protects, always trusts, always hopes, always perseveres.", refZh: "哥林多前书 13:7", refEn: "1 Corinthians 13:7" },
+    { zh: "如今常存的有信，有望，有爱；这三样，其中最大的是爱。", en: "And now these three remain: faith, hope and love. But the greatest of these is love.", refZh: "哥林多前书 13:13", refEn: "1 Corinthians 13:13" },
+    { zh: "神就是爱，住在爱里面的，就是住在神里面，神也住在他里面。", en: "God is love. Whoever lives in love lives in God, and God in them.", refZh: "约翰一书 4:16", refEn: "1 John 4:16" },
+    { zh: "惟有基督在我们还作罪人的时候为我们死，神的爱就在此向我们显明了。", en: "But God demonstrates his own love for us in this: While we were still sinners, Christ died for us.", refZh: "罗马书 5:8", refEn: "Romans 5:8" },
+
+    // ========== 主题：弥赛亚 ==========
+    { zh: "因有一婴孩为我们而生，有一子赐给我们，政权必担在他的肩头上。", en: "For to us a child is born, to us a son is given, and the government will be on his shoulders.", refZh: "以赛亚书 9:6", refEn: "Isaiah 9:6" },
+    { zh: "他名称为奇妙策士、全能的神、永在的父、和平的君。", en: "And he will be called Wonderful Counselor, Mighty God, Everlasting Father, Prince of Peace.", refZh: "以赛亚书 9:6", refEn: "Isaiah 9:6" },
+    { zh: "他诚然担当我们的忧患，背负我们的痛苦。", en: "Surely he took up our pain and bore our suffering.", refZh: "以赛亚书 53:4", refEn: "Isaiah 53:4" },
+    { zh: "他为我们的过犯受害，为我们的罪孽压伤。", en: "But he was pierced for our transgressions, he was crushed for our iniquities.", refZh: "以赛亚书 53:5", refEn: "Isaiah 53:5" },
+    { zh: "因他受的刑罚，我们得平安；因他受的鞭伤，我们得医治。", en: "The punishment that brought us peace was on him, and by his wounds we are healed.", refZh: "以赛亚书 53:5", refEn: "Isaiah 53:5" },
+    { zh: "我就是道路、真理、生命；若不借着我，没有人能到父那里去。", en: "I am the way and the truth and the life. No one comes to the Father except through me.", refZh: "约翰福音 14:6", refEn: "John 14:6" },
+    { zh: "除他以外，别无拯救；因为在天下人间，没有赐下别的名，我们可以靠着得救。", en: "Salvation is found in no one else, for there is no other name under heaven given to mankind by which we must be saved.", refZh: "使徒行传 4:12", refEn: "Acts 4:12" },
+    { zh: "基督耶稣降世，为要拯救罪人。", en: "Christ Jesus came into the world to save sinners.", refZh: "提摩太前书 1:15", refEn: "1 Timothy 1:15" },
+    { zh: "神使那无罪的，替我们成为罪，好叫我们在他里面成为神的义。", en: "God made him who had no sin to be sin for us, so that in him we might become the righteousness of God.", refZh: "哥林多后书 5:21", refEn: "2 Corinthians 5:21" },
+    { zh: "他是神荣耀所发的光辉，是神本体的真像。", en: "The Son is the radiance of God's glory and the exact representation of his being.", refZh: "希伯来书 1:3", refEn: "Hebrews 1:3" },
+
+    // ========== 主题：创造的神 ==========
+    { zh: "起初，神创造天地。", en: "In the beginning God created the heavens and the earth.", refZh: "创世记 1:1", refEn: "Genesis 1:1" },
+    { zh: "神说：要有光，就有了光。", en: "And God said, Let there be light, and there was light.", refZh: "创世记 1:3", refEn: "Genesis 1:3" },
+    { zh: "神就照着自己的形像造人，乃是照着他的形像造男造女。", en: "So God created mankind in his own image, in the image of God he created them; male and female he created them.", refZh: "创世记 1:27", refEn: "Genesis 1:27" },
+    { zh: "诸天述说神的荣耀，穹苍传扬他的手段。", en: "The heavens declare the glory of God; the skies proclaim the work of his hands.", refZh: "诗篇 19:1", refEn: "Psalm 19:1" },
+    { zh: "我要称谢你，因我受造奇妙可畏；你的作为奇妙，这是我心深知道的。", en: "I praise you because I am fearfully and wonderfully made; your works are wonderful, I know that full well.", refZh: "诗篇 139:14", refEn: "Psalm 139:14" },
+    { zh: "万物是借着他造的；凡被造的，没有一样不是借着他造的。", en: "Through him all things were made; without him nothing was made that has been made.", refZh: "约翰福音 1:3", refEn: "John 1:3" },
+    { zh: "自从造天地以来，神的永能和神性是明明可知的。", en: "For since the creation of the world God's invisible qualities—his eternal power and divine nature—have been clearly seen.", refZh: "罗马书 1:20", refEn: "Romans 1:20" },
+    { zh: "因为万有都是本于他，倚靠他，归于他。", en: "For from him and through him and for him are all things.", refZh: "罗马书 11:36", refEn: "Romans 11:36" },
+    { zh: "耶和华以智慧立地，以聪明定天。", en: "By wisdom the LORD laid the earth's foundations, by understanding he set the heavens in place.", refZh: "箴言 3:19", refEn: "Proverbs 3:19" },
+    { zh: "我们的主，我们的神，你是配得荣耀、尊贵、权柄的，因为你创造了万物。", en: "You are worthy, our Lord and God, to receive glory and honor and power, for you created all things.", refZh: "启示录 4:11", refEn: "Revelation 4:11" },
+
+    // ========== 主题：新生命 ==========
+    { zh: "若有人在基督里，他就是新造的人，旧事已过，都变成新的了。", en: "Therefore, if anyone is in Christ, the new creation has come: The old has gone, the new is here!", refZh: "哥林多后书 5:17", refEn: "2 Corinthians 5:17" },
+    { zh: "你们得救是本乎恩，也因着信；这并不是出于自己，乃是神所赐的。", en: "For it is by grace you have been saved, through faith—and this is not from yourselves, it is the gift of God.", refZh: "以弗所书 2:8", refEn: "Ephesians 2:8" },
+    { zh: "现在活着的不再是我，乃是基督在我里面活着。", en: "I have been crucified with Christ and I no longer live, but Christ lives in me.", refZh: "加拉太书 2:20", refEn: "Galatians 2:20" },
+    { zh: "你们从前是暗昧的，但如今在主里面是光明的，行事为人就当像光明的子女。", en: "For you were once darkness, but now you are light in the Lord. Live as children of light.", refZh: "以弗所书 5:8", refEn: "Ephesians 5:8" },
+    { zh: "因为赐生命圣灵的律，在基督耶稣里释放了我，使我脱离罪和死的律了。", en: "Because through Christ Jesus the law of the Spirit who gives life has set you free from the law of sin and death.", refZh: "罗马书 8:2", refEn: "Romans 8:2" },
+    { zh: "我们原是他的工作，在基督耶稣里造成的，为要叫我们行善。", en: "For we are God's handiwork, created in Christ Jesus to do good works.", refZh: "以弗所书 2:10", refEn: "Ephesians 2:10" },
+    { zh: "你们必晓得真理，真理必叫你们得以自由。", en: "Then you will know the truth, and the truth will set you free.", refZh: "约翰福音 8:32", refEn: "John 8:32" },
+    { zh: "人若不重生，就不能见神的国。", en: "No one can see the kingdom of God unless they are born again.", refZh: "约翰福音 3:3", refEn: "John 3:3" },
+    { zh: "我来了，是要叫羊得生命，并且得的更丰盛。", en: "I have come that they may have life, and have it to the full.", refZh: "约翰福音 10:10", refEn: "John 10:10" },
+    { zh: "复活在我，生命也在我。信我的人，虽然死了，也必复活。", en: "I am the resurrection and the life. The one who believes in me will live, even though they die.", refZh: "约翰福音 11:25", refEn: "John 11:25" },
+
+    // ========== 主题：祝福 ==========
+    { zh: "愿耶和华赐福给你，保护你；愿耶和华使他的脸光照你，赐恩给你。", en: "The LORD bless you and keep you; the LORD make his face shine on you and be gracious to you.", refZh: "民数记 6:24-25", refEn: "Numbers 6:24-25" },
+    { zh: "耶和华是我的牧者，我必不至缺乏。", en: "The LORD is my shepherd, I lack nothing.", refZh: "诗篇 23:1", refEn: "Psalm 23:1" },
+    { zh: "你们要尝尝主恩的滋味，便知道他是美善。", en: "Taste and see that the LORD is good; blessed is the one who takes refuge in him.", refZh: "诗篇 34:8", refEn: "Psalm 34:8" },
+    { zh: "倚靠耶和华的人好像锡安山，永不动摇。", en: "Those who trust in the LORD are like Mount Zion, which cannot be shaken but endures forever.", refZh: "诗篇 125:1", refEn: "Psalm 125:1" },
+    { zh: "你们要先求他的国和他的义，这些东西都要加给你们了。", en: "But seek first his kingdom and his righteousness, and all these things will be given to you as well.", refZh: "马太福音 6:33", refEn: "Matthew 6:33" },
+    { zh: "耶和华是我的亮光，是我的拯救，我还怕谁呢？", en: "The LORD is my light and my salvation—whom shall I fear?", refZh: "诗篇 27:1", refEn: "Psalm 27:1" },
+    { zh: "你要大大张口，我就给你充满。", en: "Open wide your mouth and I will fill it.", refZh: "诗篇 81:10", refEn: "Psalm 81:10" },
+    { zh: "耶和华本为善，他的慈爱存到永远。", en: "Give thanks to the LORD, for he is good. His love endures forever.", refZh: "诗篇 136:1", refEn: "Psalm 136:1" },
+    { zh: "我知道我向你们所怀的意念是赐平安的意念，不是降灾祸的意念，要叫你们末后有指望。", en: "For I know the plans I have for you, declares the LORD, plans to prosper you and not to harm you, plans to give you hope and a future.", refZh: "耶利米书 29:11", refEn: "Jeremiah 29:11" },
+    { zh: "万事都互相效力，叫爱神的人得益处。", en: "And we know that in all things God works for the good of those who love him.", refZh: "罗马书 8:28", refEn: "Romans 8:28" },
+
+    // ========== 主题：做门徒 ==========
+    { zh: "若有人要跟从我，就当舍己，背起他的十字架来跟从我。", en: "Whoever wants to be my disciple must deny themselves and take up their cross and follow me.", refZh: "马太福音 16:24", refEn: "Matthew 16:24" },
+    { zh: "所以，你们要去，使万民作我的门徒。", en: "Therefore go and make disciples of all nations.", refZh: "马太福音 28:19", refEn: "Matthew 28:19" },
+    { zh: "你们若常常遵守我的道，就真是我的门徒。", en: "If you hold to my teaching, you are really my disciples.", refZh: "约翰福音 8:31", refEn: "John 8:31" },
+    { zh: "你们多结果子，我父就因此得荣耀，你们也就是我的门徒了。", en: "This is to my Father's glory, that you bear much fruit, showing yourselves to be my disciples.", refZh: "约翰福音 15:8", refEn: "John 15:8" },
+    { zh: "学生不能高过先生，仆人不能高过主人。", en: "The student is not above the teacher, nor a servant above his master.", refZh: "马太福音 10:24", refEn: "Matthew 10:24" },
+    { zh: "凡称呼我主啊主啊的人，不能都进天国；惟独遵行我天父旨意的人，才能进去。", en: "Not everyone who says to me, Lord, Lord, will enter the kingdom of heaven, but only the one who does the will of my Father.", refZh: "马太福音 7:21", refEn: "Matthew 7:21" },
+    { zh: "我心里柔和谦卑，你们当负我的轭，学我的样式。", en: "Take my yoke upon you and learn from me, for I am gentle and humble in heart.", refZh: "马太福音 11:29", refEn: "Matthew 11:29" },
+    { zh: "手扶着犁向后看的，不配进神的国。", en: "No one who puts a hand to the plow and looks back is fit for service in the kingdom of God.", refZh: "路加福音 9:62", refEn: "Luke 9:62" },
+    { zh: "你们是世上的盐；你们是世上的光。", en: "You are the salt of the earth; You are the light of the world.", refZh: "马太福音 5:13-14", refEn: "Matthew 5:13-14" },
+    { zh: "我是葡萄树，你们是枝子。常在我里面的，我也常在他里面，这人就多结果子。", en: "I am the vine; you are the branches. If you remain in me and I in you, you will bear much fruit.", refZh: "约翰福音 15:5", refEn: "John 15:5" },
+
+    // ========== 主题：圣灵 ==========
+    { zh: "圣灵所结的果子，就是仁爱、喜乐、和平、忍耐、恩慈、良善、信实、温柔、节制。", en: "But the fruit of the Spirit is love, joy, peace, forbearance, kindness, goodness, faithfulness, gentleness and self-control.", refZh: "加拉太书 5:22-23", refEn: "Galatians 5:22-23" },
+    { zh: "不要醉酒，酒能使人放荡；乃要被圣灵充满。", en: "Do not get drunk on wine, which leads to debauchery. Instead, be filled with the Spirit.", refZh: "以弗所书 5:18", refEn: "Ephesians 5:18" },
+    { zh: "只等真理的圣灵来了，他要引导你们明白一切的真理。", en: "But when he, the Spirit of truth, comes, he will guide you into all the truth.", refZh: "约翰福音 16:13", refEn: "John 16:13" },
+    { zh: "圣灵与我们的心同证我们是神的儿女。", en: "The Spirit himself testifies with our spirit that we are God's children.", refZh: "罗马书 8:16", refEn: "Romans 8:16" },
+    { zh: "圣灵帮助我们的软弱。", en: "In the same way, the Spirit helps us in our weakness.", refZh: "罗马书 8:26", refEn: "Romans 8:26" },
+    { zh: "你们所受的，不是奴仆的心，仍旧害怕；所受的，乃是儿子的心。", en: "The Spirit you received does not make you slaves, so that you live in fear again; rather, the Spirit you received brought about your adoption to sonship.", refZh: "罗马书 8:15", refEn: "Romans 8:15" },
+    { zh: "不要叫神的圣灵担忧。", en: "Do not grieve the Holy Spirit of God.", refZh: "以弗所书 4:30", refEn: "Ephesians 4:30" },
+    { zh: "但圣灵降临在你们身上，你们就必得着能力。", en: "But you will receive power when the Holy Spirit comes on you.", refZh: "使徒行传 1:8", refEn: "Acts 1:8" },
+    { zh: "岂不知你们的身子就是圣灵的殿吗？", en: "Do you not know that your bodies are temples of the Holy Spirit?", refZh: "哥林多前书 6:19", refEn: "1 Corinthians 6:19" },
+    { zh: "我们若是靠圣灵得生，就当靠圣灵行事。", en: "Since we live by the Spirit, let us keep in step with the Spirit.", refZh: "加拉太书 5:25", refEn: "Galatians 5:25" },
+
+    // ========== 主题：认识神 ==========
+    { zh: "耶和华有恩典，有怜悯，不轻易发怒，大有慈爱。", en: "The LORD is compassionate and gracious, slow to anger, abounding in love.", refZh: "诗篇 103:8", refEn: "Psalm 103:8" },
+    { zh: "神就是光，在他毫无黑暗。", en: "God is light; in him there is no darkness at all.", refZh: "约翰一书 1:5", refEn: "1 John 1:5" },
+    { zh: "耶和华的眼目无处不在，恶人善人，他都鉴察。", en: "The eyes of the LORD are everywhere, keeping watch on the wicked and the good.", refZh: "箴言 15:3", refEn: "Proverbs 15:3" },
+    { zh: "神是个灵，所以拜他的，必须用心灵和诚实拜他。", en: "God is spirit, and his worshipers must worship in the Spirit and in truth.", refZh: "约翰福音 4:24", refEn: "John 4:24" },
+    { zh: "耶和华永永远远为王。", en: "The LORD reigns forever.", refZh: "诗篇 10:16", refEn: "Psalm 10:16" },
+    { zh: "你们要休息，要知道我是神。", en: "Be still, and know that I am God.", refZh: "诗篇 46:10", refEn: "Psalm 46:10" },
+    { zh: "神是我们的避难所，是我们的力量，是我们在患难中随时的帮助。", en: "God is our refuge and strength, an ever-present help in trouble.", refZh: "诗篇 46:1", refEn: "Psalm 46:1" },
+    { zh: "耶和华靠近伤心的人，拯救灵性痛悔的人。", en: "The LORD is close to the brokenhearted and saves those who are crushed in spirit.", refZh: "诗篇 34:18", refEn: "Psalm 34:18" },
+    { zh: "在神凡事都能。", en: "With God all things are possible.", refZh: "马太福音 19:26", refEn: "Matthew 19:26" },
+    { zh: "耶和华是信实的，他必坚固你们，保护你们脱离那恶者。", en: "But the Lord is faithful, and he will strengthen you and protect you from the evil one.", refZh: "帖撒罗尼迦后书 3:3", refEn: "2 Thessalonians 3:3" },
+
+    // ========== 主题：跟随主 ==========
+    { zh: "耶稣说：来跟从我，我要叫你们得人如得鱼一样。", en: "Come, follow me, Jesus said, and I will send you out to fish for people.", refZh: "马太福音 4:19", refEn: "Matthew 4:19" },
+    { zh: "凡劳苦担重担的人，可以到我这里来，我就使你们得安息。", en: "Come to me, all you who are weary and burdened, and I will give you rest.", refZh: "马太福音 11:28", refEn: "Matthew 11:28" },
+    { zh: "我的羊听我的声音，我也认识他们，他们也跟着我。", en: "My sheep listen to my voice; I know them, and they follow me.", refZh: "约翰福音 10:27", refEn: "John 10:27" },
+    { zh: "你要专心仰赖耶和华，不可倚靠自己的聪明。", en: "Trust in the LORD with all your heart and lean not on your own understanding.", refZh: "箴言 3:5", refEn: "Proverbs 3:5" },
+    { zh: "在你一切所行的事上都要认定他，他必指引你的路。", en: "In all your ways submit to him, and he will make your paths straight.", refZh: "箴言 3:6", refEn: "Proverbs 3:6" },
+    { zh: "你的话是我脚前的灯，是我路上的光。", en: "Your word is a lamp for my feet, a light on my path.", refZh: "诗篇 119:105", refEn: "Psalm 119:105" },
+    { zh: "我是好牧人，好牧人为羊舍命。", en: "I am the good shepherd. The good shepherd lays down his life for the sheep.", refZh: "约翰福音 10:11", refEn: "John 10:11" },
+    { zh: "耶和华必在你前面行，他必与你同在。", en: "The LORD himself goes before you and will be with you.", refZh: "申命记 31:8", refEn: "Deuteronomy 31:8" },
+    { zh: "我总不撇下你，也不丢弃你。", en: "Never will I leave you; never will I forsake you.", refZh: "希伯来书 13:5", refEn: "Hebrews 13:5" },
+    { zh: "看哪，我站在门外叩门，若有听见我声音就开门的，我要进到他那里去。", en: "Here I am! I stand at the door and knock. If anyone hears my voice and opens the door, I will come in.", refZh: "启示录 3:20", refEn: "Revelation 3:20" },
+
+    // ========== 主题：彼此相爱 ==========
+    { zh: "你们要彼此相爱，像我爱你们一样。", en: "My command is this: Love each other as I have loved you.", refZh: "约翰福音 15:12", refEn: "John 15:12" },
+    { zh: "人为朋友舍命，人的爱心没有比这个大的。", en: "Greater love has no one than this: to lay down one's life for one's friends.", refZh: "约翰福音 15:13", refEn: "John 15:13" },
+    { zh: "你们若有彼此相爱的心，众人因此就认出你们是我的门徒了。", en: "By this everyone will know that you are my disciples, if you love one another.", refZh: "约翰福音 13:35", refEn: "John 13:35" },
+    { zh: "亲爱的弟兄啊，我们应当彼此相爱，因为爱是从神来的。", en: "Dear friends, let us love one another, for love comes from God.", refZh: "约翰一书 4:7", refEn: "1 John 4:7" },
+    { zh: "要爱人如己。", en: "Love your neighbor as yourself.", refZh: "马太福音 22:39", refEn: "Matthew 22:39" },
+    { zh: "你们的仇敌，要爱他；恨你们的，要待他好。", en: "Love your enemies, do good to those who hate you.", refZh: "路加福音 6:27", refEn: "Luke 6:27" },
+    { zh: "各人不要单顾自己的事，也要顾别人的事。", en: "Not looking to your own interests but each of you to the interests of the others.", refZh: "腓立比书 2:4", refEn: "Philippians 2:4" },
+    { zh: "你们要彼此饶恕，正如神在基督里饶恕了你们一样。", en: "Forgiving each other, just as in Christ God forgave you.", refZh: "以弗所书 4:32", refEn: "Ephesians 4:32" },
+    { zh: "总要用爱心互相服事。", en: "Serve one another humbly in love.", refZh: "加拉太书 5:13", refEn: "Galatians 5:13" },
+    { zh: "你们各人的重担要互相担当，如此就完全了基督的律法。", en: "Carry each other's burdens, and in this way you will fulfill the law of Christ.", refZh: "加拉太书 6:2", refEn: "Galatians 6:2" }
+];
